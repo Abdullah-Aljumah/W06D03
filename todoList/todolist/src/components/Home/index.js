@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 const Home = () => {
   const URL_BASE = "http://localhost:5000";
-  //   const navigate = useNavigate();
   const [todo, setTodo] = useState([]);
   const getTask = async () => {
     const items = await axios.get(`${URL_BASE}/todo`);
@@ -20,17 +19,24 @@ const Home = () => {
     setTodo(todo.filter((item) => item.id != id));
   };
   const updateTask = (e, id) => {
+    // فنكشن عشان اعدل على الليست باستخدام الاي دي
     console.log(e);
     console.log(id);
 
-    todo.find((item) => {
-      if (item.id == id) {
-        item[id].task = e;
-      }
-    }); // فنكشن عشان اعدل على الليست باستخدام الاي دي
+    // وصصلت للايدي والانبوت لكن ماقدرت اخليه يغير
+    setTodo(
+      todo.map((item) => {
+        if (item.id == id) {
+          item.id = id;
+          item.task = e;
+          item.isCompelete = false;
+          item.isDel = false;
+        }
+      })
+    );
   };
   const isCompelete = (id) => {
-    setTodo(todo.filter((item) => item.isCompelete != true));
+    setTodo(todo.filter((item) => item.isCompelete == false));
   };
   const deleteAll = (item) => {
     // make todo empty
@@ -46,12 +52,11 @@ const Home = () => {
       isCompelete: false,
     };
     setTodo([...todo, newTask]);
-    //   e.target.task.value = "";
   };
 
   return (
     <div className="home">
-      <input onDoubleClick={creatTask} type="text" className="input1" />
+      <input onDoubleClick={creatTask} type="text" className="input1" placeholder="Double Click To Enter" />
       {todo.map((item, id) => {
         {
           // حطيت شرط اذا كان از ديليت  يساوي فالز اظهره
