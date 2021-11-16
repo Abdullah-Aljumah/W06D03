@@ -1,14 +1,1 @@
-[
-    {
-        "id": 0,
-        "task": "read"
-    },
-    {
-        "id": 1,
-        "task": "code"
-    },
-    {
-        "id": 2,
-        "task": "play"
-    }
-]
+[{"id":0,"task":"read"},{"id":1,"task":"sleep"},{"id":2,"task":"play"}]
